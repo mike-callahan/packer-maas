@@ -31,13 +31,13 @@ source "qemu" "cloudimg" {
   boot_wait      = "2s"
   cpus           = 2
   disk_image     = true
-  disk_size      = "4G"
+  disk_size      = "8G"
   format         = "qcow2"
   headless       = var.headless
   http_directory = var.http_directory
   iso_checksum   = "file:https://cloud.debian.org/images/cloud/${var.debian_series}/latest/SHA512SUMS"
   iso_url        = "https://cloud.debian.org/images/cloud/${var.debian_series}/latest/debian-${var.debian_version}-generic-${var.architecture}.qcow2"
-  memory         = 2048
+  memory         = 4096
   qemu_binary    = "qemu-system-${lookup(local.qemu_arch, var.architecture, "")}"
   qemu_img_args {
     create = ["-F", "qcow2"]
@@ -85,13 +85,7 @@ build {
   provisioner "shell" {
     environment_vars = concat(local.proxy_env, ["DEBIAN_FRONTEND=noninteractive", "DEBIAN_VERSION=${var.debian_version}", "BOOT_MODE=${var.boot_mode}"])
     expect_disconnect = true
-    scripts          = ["${path.root}/scripts/proxmox-kernel.sh"]
-  }
-
-  provisioner "shell" {
-    environment_vars = concat(local.proxy_env, ["DEBIAN_FRONTEND=noninteractive", "DEBIAN_VERSION=${var.debian_version}", "BOOT_MODE=${var.boot_mode}"])
-    expect_disconnect = true
-    scripts          = ["${path.root}/scripts/proxmox-packages.sh"]
+    scripts          = ["${path.root}/scripts/proxmox-repo.sh"]
   }
 
   provisioner "shell" {
@@ -116,6 +110,12 @@ build {
   provisioner "shell" {
     environment_vars = ["CLOUDIMG_CUSTOM_KERNEL=${var.kernel}"]
     scripts          = ["${path.root}/scripts/setup-curtin.sh"]
+  }
+
+  provisioner "shell" {
+    environment_vars = concat(local.proxy_env, ["DEBIAN_FRONTEND=noninteractive", "DEBIAN_VERSION=${var.debian_version}", "BOOT_MODE=${var.boot_mode}"])
+    expect_disconnect = true
+    scripts          = ["${path.root}/scripts/proxmox-packages.sh"]
   }
 
   provisioner "shell" {

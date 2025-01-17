@@ -1,12 +1,12 @@
 variable "debian_series" {
   type        = string
-  default     = "bullseye"
+  default     = "bookworm"
   description = "The codename of the debian series to build."
 }
 
 variable "debian_version" {
   type        = string
-  default     = "11"
+  default     = "12"
   description = "The version number of the debian series to build."
 }
 
@@ -18,13 +18,13 @@ variable "boot_mode" {
 
 variable "filename" {
   type        = string
-  default     = "debian-custom-cloudimg.tar.gz"
+  default     = "proxmox-custom-cloudimg.tar.gz"
   description = "The filename of the tarball to produce"
 }
 
 variable "kernel" {
   type        = string
-  default     = ""
+  default     = "proxmox-default-kernel"
   description = "The package name of the kernel to install. May include version string, e.g linux-image-amd64=5.10.127-2~bpo10+1"
 }
 

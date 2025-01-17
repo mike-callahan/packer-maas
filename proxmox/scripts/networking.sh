@@ -66,16 +66,10 @@ chmod 755 /usr/local/bin/netplan
 # TODO: Figure a way to upstream the changes.
 
 # Bookworm LP#2011454
-if [ ${DEBIAN_VERSION} == '12' ]; then
-     wget http://archive.ubuntu.com/ubuntu/pool/main/c/cloud-init/cloud-init_23.1.2-0ubuntu0~23.04.1_all.deb
-     dpkg -i cloud-init_23.1.2-0ubuntu0~23.04.1_all.deb
-     rm cloud-init_23.1.2-0ubuntu0~23.04.1_all.deb
-else
-    wget http://archive.ubuntu.com/ubuntu/pool/main/c/cloud-init/cloud-init_20.1-10-g71af48df-0ubuntu5_all.deb
-    dpkg -i cloud-init_20.1-10-g71af48df-0ubuntu5_all.deb
-    rm cloud-init_20.1-10-g71af48df-0ubuntu5_all.deb
-fi
 
+wget http://launchpadlibrarian.net/662986719/cloud-init_23.1.2-0ubuntu0~23.04.1_all.deb
+dpkg -i cloud-init_23.1.2-0ubuntu0~23.04.1_all.deb
+rm cloud-init_23.1.2-0ubuntu0~23.04.1_all.deb
 
 # Enable the following lines if willing to use Netplan
 #echo 'ENABLED=1' > /etc/default/netplan

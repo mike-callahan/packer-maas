@@ -35,18 +35,12 @@ cloud-init clean --logs
 
 apt-get update
 if [ ${BOOT_MODE} == "uefi" ]; then
-        if [ ${ARCH} == "amd64" ]; then
-                apt-get install -y grub-cloud-${ARCH} grub-efi-${ARCH}
-        else
-                apt-get install -y grub-efi-${ARCH}-signed shim-signed grub-efi-${ARCH}
-        fi
+        apt-get install -y grub-cloud-${ARCH} grub-efi-${ARCH}
 else
         apt-get install -y grub-cloud-${ARCH} grub-pc
 fi
 
 # Bookworm does not include this, but curtin requires this during the installation.
-if [ ${DEBIAN_VERSION} == '12' ]; then
-        wget http://ftp.us.debian.org/debian/pool/main/e/efibootmgr/efibootmgr_15-1_${ARCH}.deb
-        dpkg -i efibootmgr_15-1_${ARCH}.deb
-        rm efibootmgr_15-1_${ARCH}.deb
-fi
+wget http://ftp.us.debian.org/debian/pool/main/e/efibootmgr/efibootmgr_15-1_${ARCH}.deb
+dpkg -i efibootmgr_15-1_${ARCH}.deb
+rm efibootmgr_15-1_${ARCH}.deb

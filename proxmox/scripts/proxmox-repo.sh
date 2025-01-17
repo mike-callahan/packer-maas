@@ -24,7 +24,4 @@ sha512sum /etc/apt/trusted.gpg.d/proxmox-release-bookworm.gpg
 
 cat /etc/apt/trusted.gpg.d/proxmox-release-bookworm.gpg 
 
-apt-get update
-apt-get -y full-upgrade
-apt -y install proxmox-default-kernel
-shutdown -r now
+apt update

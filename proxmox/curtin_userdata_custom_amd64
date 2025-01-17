@@ -1,7 +1,7 @@
 #cloud-config
 kernel:
   fallback-package: linux-image-amd64
-  package: linux-image-amd64
+  package: proxmox-default-kernel
 
 apt:
   preserve_sources_list: true
